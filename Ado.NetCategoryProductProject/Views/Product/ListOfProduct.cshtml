@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Ado.NetCategoryProductProject.Models.Product>
+
+@{
+    ViewBag.Title = "ListOfProduct";
+}
+
+<h2>ListOfProduct</h2>
+@foreach (var item in Model)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", "Product", new { CategoryId = item.CategoryId }, null)
+        @{
+            break;
+        }
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prise)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { ProductId = item.ProductId }) |
+                @Html.ActionLink("Details", "Details", new { ProductId = item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { ProductId = item.ProductId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+@{
+
+
+    double totalPages = ViewBag.TotalPages;
+
+    for (int i = 1; i <= totalPages; i++)
+    {
+
+        <ul class="pagination">
+            <li>
+                @Html.ActionLink(i.ToString(), "ListOfProduct", new { CategoryId = @Session["CategoryId"], a = i })
+
+            </li>
+        </ul>
+    }
+}
+
+<td>
+    @Html.ActionLink("Back To Category ", "Index", "Category")
+</td>
+
+

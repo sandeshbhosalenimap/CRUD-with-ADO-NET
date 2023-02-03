@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Ado.NetCategoryProductProject.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{
+                    if (item.Status == 1)
+                    {
+                        @Html.ActionLink(item.CategoryName, "ListOfProduct", "Product", new { CategoryID = item.CategoryId }, null)
+
+                    }
+                }
+
+            </td>
+
+            <td>
+                <button type="button" class="btn btn-success" onclick="window.location= '@Url.Action("Deactive", "Category" , new { CategoryID = item.CategoryId }, null)'">Deactive</button>
+
+            </td>
+            <td>
+                <button type="button" class="btn btn-info" onclick="window.location= '@Url.Action("Active", "Category",  new { CategoryID = item.CategoryId }, null)'">Active</button>
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+@{
+
+
+    double totalPages = ViewBag.TotalPages;
+
+    for (int i = 1; i <= totalPages; i++)
+    {
+
+        <ul class="pagination">
+            <li>
+                @Html.ActionLink(i.ToString(), "Index", new { a = i })
+
+            </li>
+        </ul>
+    }
+}
